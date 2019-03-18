@@ -116,7 +116,7 @@ class MainScreenState extends State<MainScreen> {
     );
   }
 
-  Future<Null> refreshListSource() {
+  Future<Null> refreshListSource() async {
     refreshKey.currentState?.show(atTop: false);
     setState(() {
       list_sources = fetchNewsSource();
