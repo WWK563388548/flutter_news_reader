@@ -1,8 +1,16 @@
 # flutter_news_reader
 
-A new Flutter application.
+A Flutter news application.<br />
+API: https://newsapi.org/
 
-## Getting Started
+How to run project:
+1. Download flutter, Android studio(or others) and install them.
+2. Clone this project to your computer.
+3. According to [Flutter Doc](https://flutter.dev/docs/get-started/editor) set up your environment.
+4. Open this project by Android studio(or others)
+5. Build and test this project
+
+## Learn Flutter
 
 This project is a starting point for a Flutter application.
 
