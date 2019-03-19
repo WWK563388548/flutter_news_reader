@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter_news_reader/model/model.dart';
 import 'dart:convert';
+import 'package:flutter_news_reader/article_screen.dart';
 
 String API_KEY = "YOUR_API_KEY";
 
@@ -63,7 +64,9 @@ class MainScreenState extends State<MainScreen> {
                     List<Source> sources = snapshot.data;
                     return ListView(
                       children: sources.map((source) => GestureDetector(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleScreen(source: source)));
+                        },
                         child: Card(
                           elevation: 1.0,
                           color: Colors.white,
@@ -75,7 +78,11 @@ class MainScreenState extends State<MainScreen> {
                                 margin: const EdgeInsets.symmetric(horizontal: 2.0),
                                 width: 100,
                                 height: 140,
-                                child: Image.asset("assets/news.jpg"),
+                                child: Image(
+                                  image: AssetImage("assets/news.jpg"),
+                                  fit: BoxFit.fill,
+                                ),
+                                // child: Icon(Icons.book),
                               ),
                               Expanded(
                                 child: Column(
@@ -92,9 +99,13 @@ class MainScreenState extends State<MainScreen> {
                                       ],
                                     ),
                                     Container(
+                                      height: 70,
+                                      margin: const EdgeInsets.only(bottom: 10),
                                       child: Text('${source.description}', style: TextStyle(color: Colors.grey, fontSize: 12),),
                                     ),
                                     Container(
+                                      height: 28,
+                                      margin: const EdgeInsets.only(bottom: 5),
                                       child: Text('Category: ${source.category}', style: TextStyle(color: Colors.black, fontSize: 14),),
                                     ),
                                   ],
