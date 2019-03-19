@@ -3,6 +3,7 @@ import 'dart:convert'; // json decode
 import 'package:flutter_news_reader/model/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String API_KEY = "YOUR_API_KEY";
 
@@ -44,6 +45,16 @@ class ArticleScreenState extends State<ArticleScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: Text(widget.source.name),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+
+                },
+              );
+            },
+          ),
         ),
         body: Center(
           child: RefreshIndicator(
@@ -58,7 +69,7 @@ class ArticleScreenState extends State<ArticleScreen> {
                     return ListView(
                       children: articles.map((article) => GestureDetector(
                         onTap: (){
-
+                          _launchUrl(article.url);
                         },
                         child: Card(
                           elevation: 1,
@@ -87,6 +98,14 @@ class ArticleScreenState extends State<ArticleScreen> {
                                         ),
                                       ],
                                     ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 8),
+                                      child: Text("${article.description}", style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 8, top: 10, bottom: 10),
+                                      child: Text("Published At: ${article.publishedAt}", style: TextStyle(color: Colors.black12, fontSize: 12, fontWeight: FontWeight.bold),),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -112,5 +131,13 @@ class ArticleScreenState extends State<ArticleScreen> {
       list_articles = fetchArticleBySource(widget.source.id);
     });
     return null;
+  }
+
+  _launchUrl(String url) async {
+    if(await canLaunch(url)){
+      await launch(url);
+    } else {
+      throw ("Could not launch ${url}");
+    }
   }
 }
